@@ -1,17 +1,22 @@
-const mongoose = require("mongoose");
-const { User, Thought } = require("./models"); // Adjust the path to your models
+const mongoose = require("mongoose"); // Import mongoose for MongoDB interactions
+const { User, Thought } = require("./models"); // Import the User and Thought models
 
+// Connect to the MongoDB database named 'socialnetwork'
 mongoose.connect("mongodb://localhost:27017/socialnetwork", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useNewUrlParser: true, // Use the new URL parser to avoid deprecation warnings
+  useUnifiedTopology: true, // Use the new Server Discover and Monitoring engine
 });
 
+// Get the default connection
 const db = mongoose.connection;
+// Bind connection to error event (to get notification of connection errors)
 db.on("error", console.error.bind(console, "connection error:"));
+// Once the connection is open, log a success message
 db.once("open", () => {
   console.log("Connected to MongoDB");
 });
 
+// Define an array of users to be inserted into the database
 const users = [
   {
     username: "john_doe",
@@ -33,6 +38,7 @@ const users = [
   },
 ];
 
+// Define an array of thoughts to be inserted into the database
 const thoughts = [
   {
     thoughtText: "This is John's first thought!",
@@ -51,6 +57,7 @@ const thoughts = [
   },
 ];
 
+// Define an array of reactions to be inserted into the database
 const reactions = [
   {
     reactionBody: "Nice thought!",
@@ -64,11 +71,14 @@ const reactions = [
   },
 ];
 
+// Define an async function to seed the database
 const seedDatabase = async () => {
   try {
+    // Delete all existing users and thoughts
     await User.deleteMany({});
     await Thought.deleteMany({});
 
+    // Insert the users and thoughts arrays into the database
     const createdUsers = await User.insertMany(users);
     const createdThoughts = await Thought.insertMany(thoughts);
 
@@ -113,4 +123,5 @@ const seedDatabase = async () => {
   }
 };
 
+// Call the seedDatabase function to start the seeding process
 seedDatabase();

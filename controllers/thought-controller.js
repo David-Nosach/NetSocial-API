@@ -1,6 +1,8 @@
 const { Thought, User } = require("../models");
 
+// Controller for Thought-related operations
 const thoughtController = {
+  // Get all thoughts
   getAllThoughts(req, res) {
     Thought.find({})
       .select("-__v")
@@ -11,6 +13,7 @@ const thoughtController = {
       });
   },
 
+  // Get a single thought by ID
   getThoughtById({ params }, res) {
     Thought.findOne({ _id: params.id })
       .select("-__v")
@@ -27,6 +30,7 @@ const thoughtController = {
       });
   },
 
+  // Create a new thought and add it to the user's thought list
   createThought({ body }, res) {
     Thought.create(body)
       .then(({ _id }) => {
@@ -46,6 +50,7 @@ const thoughtController = {
       .catch((err) => res.status(400).json(err));
   },
 
+  // Update a thought by ID
   updateThought({ params, body }, res) {
     Thought.findOneAndUpdate({ _id: params.id }, body, {
       new: true,
@@ -61,6 +66,7 @@ const thoughtController = {
       .catch((err) => res.status(400).json(err));
   },
 
+  // Delete a thought by ID and remove it from the user's thought list
   deleteThought({ params }, res) {
     Thought.findOneAndDelete({ _id: params.id })
       .then((dbThoughtData) => {
@@ -80,6 +86,7 @@ const thoughtController = {
       .catch((err) => res.status(400).json(err));
   },
 
+  // Add a reaction to a thought
   addReaction({ params, body }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
@@ -96,6 +103,7 @@ const thoughtController = {
       .catch((err) => res.status(400).json(err));
   },
 
+  // Remove a reaction from a thought
   removeReaction({ params }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
