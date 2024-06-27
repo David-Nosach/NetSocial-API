@@ -4,7 +4,8 @@
 
 This project is a simple social network API built with Node.js, Express, and MongoDB using Mongoose. It allows users to create an account, post thoughts, react to thoughts, and add friends.
 
-Video Demenstration: https://drive.google.com/file/d/17u8NfUHOZ5umOH5l0BZf1X_5Q3SPhVHn/view?usp=sharing
+Video Demenstration:
+https://drive.google.com/file/d/17u8NfUHOZ5umOH5l0BZf1X_5Q3SPhVHn/view?usp=sharing
 
 ## Table of Contents
 
